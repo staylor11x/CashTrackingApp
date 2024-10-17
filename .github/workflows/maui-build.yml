@@ -1,0 +1,53 @@
+name: .NET MAUI Build and Test
+
+on:
+  # This triggers the workflow on push and pull request to the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest  # This specifies the environment the build will run on
+
+    steps:
+      # Check out the code from repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up .NET SDK
+      - name: Set up .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'  
+
+      # Install MAUI workloads
+      - name: Install MAUI workloads
+        run: dotnet workload install maui
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Build the solution in Release mode
+      - name: Build the solution
+        run: dotnet build --configuration Release
+
+      # Run unit tests
+      - name: Run unit tests
+        run: dotnet test --no-build --verbosity normal
+
+      # Build APK for Android
+      - name: Build Android APK
+        run: dotnet build -t:BuildApk -f:net8.0-android --configuration Release
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-apk
+          path: '**/*.apk'
+ 
+  

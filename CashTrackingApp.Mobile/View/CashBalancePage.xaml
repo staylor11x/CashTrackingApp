@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CashTrackingApp.Mobile.ViewModel"
+             x:Class="CashTrackingApp.Mobile.View.CashBalancePage"
+             Title="Cash Balance"
+             BackgroundColor="Black">
+    
+    <ContentPage.BindingContext>
+        <local:CashViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20" Spacing="15" VerticalOptions="Center">
+        <Label Text="Current Balance:"
+           FontSize="Large"
+           TextColor="White"
+           HorizontalOptions="Center" />
+
+        <Label Text="{Binding Balance, StringFormat='£{0:N2}'}"
+           FontSize="24"
+           TextColor="LimeGreen"
+           HorizontalOptions="Center" />
+
+        <!-- More UI elements can be added here later -->
+    </StackLayout>
+</ContentPage>

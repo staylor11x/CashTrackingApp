@@ -38,7 +38,7 @@ jobs:
 
       # Run unit tests
       - name: Run unit tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --verbosity normal
 
       # Build APK for Android
       - name: Build Android APK

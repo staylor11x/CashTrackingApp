@@ -16,13 +16,13 @@ public class CashService : ICashService
         _cashRepository = cashRepository;
     }
 
-    public double UpdateBalance(double newBalance)
+    public Task<double> UpdateBalanceAsync(double newBalance)
     {
-        return _cashRepository.UpdateBalance(newBalance);
+        return _cashRepository.UpdateBalanceAsync(newBalance);
     }
 
-    public double GetBalance()
+    public Task<double> GetBalanceAsync()
     {
-        return _cashRepository.GetBalance();
+        return _cashRepository.GetBalanceAsync();
     }
 }

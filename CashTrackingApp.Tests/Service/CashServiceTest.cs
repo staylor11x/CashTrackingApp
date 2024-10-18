@@ -3,7 +3,7 @@ using Xunit;
 using CashTrackingApp.Mobile.Repository;
 using CashTrackingApp.Mobile.Service;
 
-namespace CashTrackingAppTest.Service;
+namespace CashTrackingApp.Tests.Service;
 
 public class CashServiceTest
 {
@@ -11,39 +11,40 @@ public class CashServiceTest
     private CashService _cashService;
 
     //Constructor for setting up the mock and service before each test
-    public CashServiceTest() 
+    public CashServiceTest()
     {
         _mockRepo = new Mock<ICashRepository>();
-        _cashService = new CashService( _mockRepo.Object ); //sut
+        _cashService = new CashService(_mockRepo.Object); //sut
     }
 
 
     [Fact]
-    public void GetBalanceShouldReturnCorrectBalance()
+    public async Task GetBalanceAsyncShouldReturnCorrectBalance()
     {
         //Arrange
-        _mockRepo.Setup(repo => repo.GetBalance()).Returns(100.00);
+        _mockRepo.Setup(repo => repo.GetBalanceAsync()).ReturnsAsync(100.00);
         double expected = 100.00;
 
         //Act
-        double actual = _cashService.GetBalance();
+        double actual = await _cashService.GetBalanceAsync();
 
         //Assert
-        Assert.Equal(expected, actual);  
-        _mockRepo.Verify(repo => repo.GetBalance(), Times.Once());
+        Assert.Equal(expected, actual);
+        _mockRepo.Verify(repo => repo.GetBalanceAsync(), Times.Once());
     }
 
     [Fact]
-    public void UpdateBalanceShouldReturnCorrectBalance()
+    public async Task UpdateBalanceShouldReturnCorrectBalance()
     {
         //Arrange
         double newBalance = 150.00;
-        _mockRepo.Setup(repo => repo.UpdateBalance(newBalance)).Returns(newBalance);
+        _mockRepo.Setup(repo => repo.UpdateBalanceAsync(newBalance)).ReturnsAsync(newBalance);
 
-        double actual = _cashService.UpdateBalance(newBalance);
+        //Act
+        double actual = await _cashService.UpdateBalanceAsync(newBalance);
 
         //Assert 
         Assert.Equal(newBalance, actual);
-        _mockRepo.Verify(repo => repo.UpdateBalance(newBalance), Times.Once());
+        _mockRepo.Verify(repo => repo.UpdateBalanceAsync(newBalance), Times.Once());
     }
 }

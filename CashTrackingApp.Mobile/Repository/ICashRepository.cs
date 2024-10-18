@@ -8,8 +8,8 @@ namespace CashTrackingApp.Mobile.Repository;
 
 public interface ICashRepository
 {
-    double GetBalance();
+    Task<double> GetBalanceAsync();
 
-    double UpdateBalance(double newBalance);
+    Task<double> UpdateBalanceAsync(double newBalance);
 }
 

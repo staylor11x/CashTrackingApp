@@ -8,6 +8,6 @@ namespace CashTrackingApp.Mobile.Service;
 
 public interface ICashService
 {
-    double GetBalance();
-    double UpdateBalance(double newBalance);
+    Task<double> GetBalanceAsync();
+    Task<double> UpdateBalanceAsync(double newBalance);
 }

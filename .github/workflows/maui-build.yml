@@ -40,9 +40,9 @@ jobs:
       - name: Run unit tests
         run: dotnet test --verbosity normal
 
-      # Build APK for Android
+      # Build APK for Android, do not build the test project
       - name: Build Android APK
-        run: dotnet build -t:BuildApk -f:net8.0-android --configuration Release
+        run: dotnet build -t:BuildApk -f:net8.0-android --configuration Release --project CashTrackingApp.Mobile/CashTrackingApp.Mobile.csproj
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v3

@@ -42,7 +42,7 @@ jobs:
 
       # Build APK for Android, do not build the test project
       - name: Build Android APK
-        run: dotnet build -t:BuildApk -f:net8.0-android --configuration Release --project CashTrackingApp.Mobile/CashTrackingApp.Mobile.csproj
+        run: dotnet build CashTrackingApp.Mobile/CashTrackingApp.Mobile.csproj -t:BuildApk -f:net8.0-android --configuration Release 
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v3

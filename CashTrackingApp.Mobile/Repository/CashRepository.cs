@@ -15,6 +15,7 @@ public class CashRepository : ICashRepository
     public CashRepository()
     {
         string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "cashtrackingapp.db");
+        System.Console.WriteLine("db", dbPath);
         _database = new SQLiteAsyncConnection(dbPath);
         _database.CreateTableAsync<Balance>().Wait();
     }

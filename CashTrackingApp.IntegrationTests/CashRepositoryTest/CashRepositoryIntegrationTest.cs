@@ -1,20 +1,32 @@
 using SQLite;
 using CashTrackingApp.Mobile.Repository;
 using CashTrackingApp.Mobile.Model;
+using Xunit;
 
 namespace CashTrackingApp.IntegrationTests.CashRepositoryTest;
 
-public class CashRepositoryIntegrationTest
+public class CashRepositoryIntegrationTest : IAsyncLifetime
 {
-    private readonly SQLiteAsyncConnection _database;
-    private CashRepository _cashRepository;
+    private SQLiteAsyncConnection? _database;
+    private CashRepository? _cashRepository;
 
-    public CashRepositoryIntegrationTest()
+    // This method is called before each test method
+    public async Task InitializeAsync()
     {
         _database = new SQLiteAsyncConnection(":memory:");
-        _database.CreateTableAsync<Balance>().Wait();
-
+        await _database.CreateTableAsync<Balance>();
         _cashRepository = new CashRepository(_database);
+    }
+
+    // This method is called after each test method
+    public async Task DisposeAsync()
+    {
+        if (_database != null)
+        {
+            await _database.CloseAsync();
+            _database = null;
+            _cashRepository = null;
+        }
     }
 
     [Fact]
